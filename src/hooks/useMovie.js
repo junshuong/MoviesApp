@@ -11,4 +11,4 @@ const useMovie = id => {
   return [movie, setMovie];
 };
 
-export default useMovie
+export default useMovie;
