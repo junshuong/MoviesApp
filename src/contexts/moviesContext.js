@@ -1,11 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useReducer, useEffect } from "react";
+import { getMovies } from "../api/movie-api";
 
 export const MoviesContext = React.createContext(null);
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "load":
+      return { movies: action.payload.result};
+    default:
+      return state;
+  }
+};
 
 const MoviesContextProvider = (props) => {
   const [myReviews, setMyReviews] = useState( {} )
   const [favorites, setFavorites] = useState( [] )
   const [watchlist, setWatchlist] = useState( [] )  // Add state variable - Watchlist 
+  const [state, dispatch] = useReducer(reducer, { movies: []});
+  const [authenticated, setAuthenticated] = useState(false);
+
+  useEffect(() => {
+    getMovies().then(result => {
+      console.log(result);
+      dispatch({ type: "load", payload: {result}});
+    });
+  },[]);
 
   const addToFavorites = (movie) => {
     let newFavorites = [];
@@ -39,6 +58,8 @@ const MoviesContextProvider = (props) => {
   return (
     <MoviesContext.Provider
       value={{
+        movies: state.movies,
+        setAuthenticated,
         favorites,
         addToFavorites,
         removeFromFavorites,
