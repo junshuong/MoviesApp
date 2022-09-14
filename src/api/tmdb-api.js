@@ -88,3 +88,19 @@ export const getMovie = (args) => {
       throw error
    });
   };
+
+  // Added hook to GET popular movies
+  export const getPopularMovies = () => {
+    return fetch(
+      // `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1` // same results with discover&sort_by=populartiy.desc but updates daily
+      `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&sort_by=popularity.desc` 
+    ).then((response) => {
+      if (!response.ok) {
+        throw new Error(response.json().message);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      throw error
+   });
+  };
