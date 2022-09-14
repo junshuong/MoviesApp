@@ -13,7 +13,7 @@ export const getMovies = () => {
 };
   
 export const getMovie = (args) => {
-  console.log(args)
+  // console.log(args)
   const [, idPart] = args.queryKey;
   const { id } = idPart;
   return fetch(
