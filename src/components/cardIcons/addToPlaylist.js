@@ -8,8 +8,8 @@ const AddToPlaylistIcon = ({ movie }) => {
 
   const handleAddToPlaylist = (e) => {
     e.preventDefault();
-    context.addToPlaylist(movie);
-  };
+    context.addToWatchlist(movie);
+  }; 
   return (
     <IconButton aria-label="add to playlist" onClick={handleAddToPlaylist}>
       <PlaylistAddIcon color="primary" fontSize="large" />
